@@ -36,7 +36,17 @@ class Heap():
     def getList(self):
         return self.ls
 
+    def getMax(self):
+        """ gets the max from the heap. this can throw if the heap itself is empty """ 
+        res = self.ls.pop(0)
+        self.maxHeapify(0)
+        return res
+
+    def isEmpty(self):
+        return len(self.ls) == 0
+
 if __name__ == '__main__':
     heap = Heap([3, 2, 5, 6, 10, 7, 1])
     heap.buildMaxHeap()
-    print(heap.getList())
+    while not heap.isEmpty(): 
+        print(heap.getMax())
