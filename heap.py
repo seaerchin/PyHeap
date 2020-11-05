@@ -24,10 +24,13 @@ class Heap():
             self.maxHeapify(largest)
 
     def left(self, i): 
-        return 2 * i
+        return 2 * (i + 1) - 1
     
     def right(self, i):
-        return 2 * i + 1
+        return 2 * (i + 1)
+
+    def parent(self, i):
+        return (i) // 2
 
     def buildMaxHeap(self): 
         for i in range(len(self.ls) // 2, -1, -1):
@@ -45,8 +48,21 @@ class Heap():
     def isEmpty(self):
         return len(self.ls) == 0
 
+    def __str__(self): 
+        return str(self.getList())
+    
+    def push(self, item): 
+        self.ls.append(item)
+        cur = len(self.ls) - 1 
+        p = self.parent
+        while cur >= 0 and self.ls[p(cur)] < self.ls[cur]: 
+            self.ls[p(cur)], self.ls[cur] = self.ls[cur], self.ls[p(cur)]
+            cur = p(cur)
+
 if __name__ == '__main__':
-    heap = Heap([3, 2, 5, 6, 10, 7, 1])
-    heap.buildMaxHeap()
-    while not heap.isEmpty(): 
-        print(heap.getMax())
+    heap = Heap()
+    x = [3, 2, 5, 6, 10, 7, 1]
+    for i in x: 
+        heap.push(i)
+    heap.push(8)
+    print(heap)
